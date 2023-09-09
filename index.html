@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="icon.webp" />
+    <title>BILL</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Lato&family=PT+Sans:ital@1&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        font-family: "Lato", sans-serif;
+        font-family: "PT Sans", sans-serif;
+        background-color: black;
+      }
+
+      #box1 {
+        margin-top: 10vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        background-color: purple;
+        width: 50vh;
+        height: 50vh;
+        border-radius: 50vh;
+      }
+
+      h1 {
+        color: white;
+      }
+
+      input {
+        margin-top: 2vh;
+        margin-bottom: 2vh;
+        padding-left: 2vh;
+        width: 200px;
+        border: 1vh solid white;
+        border-radius: 30px;
+      }
+
+      #btn {
+        margin-top: 2vh;
+        width: 80px;
+        height: 28px;
+        border: 1vh solid white;
+        border-radius: 30px;
+      }
+
+      #btn:hover {
+        background-color: black;
+        border: 1vh solid black;
+        color: white;
+        cursor: pointer;
+      }
+
+      #del {
+        margin-top: 2vh;
+        width: 80px;
+        height: 28px;
+        border: 1vh solid white;
+        border-radius: 30px;
+        display: none;
+      }
+
+      #content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: black;
+      }
+      #total {
+        display: none;
+        color: black;
+      }
+
+      #box2 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        margin-top: 10vh;
+        margin-bottom: 10vh;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        border-radius: 20px;
+        width: 50vh;
+        background-color: #68c6ac;
+      }
+
+      @media screen and (max-width: 700px) {
+        #box1 {
+          margin-top: 10vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          background-color: purple;
+          width: 80vw;
+          height: 80vw;
+          border-radius: 50vh;
+        }
+
+        #box2 {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          margin-top: 10vh;
+          margin-bottom: 10vh;
+          padding-top: 20px;
+          padding-bottom: 20px;
+          border-radius: 20px;
+          width: 80vw;
+          background-color: #68c6ac;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="box1">
+      <h1>BILL</h1>
+      <input type="text" id="in1" placeholder="ITEM" />
+      <input type="text" id="in2" placeholder="QUANTITY" />
+      <input type="text" id="in3" placeholder="PRICE" />
+      <button id="btn" onclick="func1()">Submit</button>
+    </div>
+    <div id="box2">
+      <div id="content"></div>
+      <div id="total">TOTAL</div>
+      <button id="del" onclick="func2()">Delete</button>
+    </div>
+    <script>
+      let I1 = document.getElementById("in1");
+      let I2 = document.getElementById("in2");
+      let I3 = document.getElementById("in3");
+      let B = document.getElementById("btn");
+      let C = document.getElementById("content");
+      let D = document.getElementById("del");
+      let T = document.getElementById("total");
+      let i = 0;
+
+      function func1() {
+        let H1 = document.createElement("h3");
+        let H2 = document.createElement("h3");
+        let H3 = document.createElement("h3");
+        i = i + 1;
+        H1.className = "item";
+        H2.className = "quantity";
+        H3.className = "price";
+        H1.innerHTML = "ITEM - " + i + " : " + I1.value;
+        H2.innerHTML = I2.value;
+        H3.innerHTML = I3.value;
+        C.appendChild(H1);
+        C.appendChild(H2);
+        C.appendChild(H3);
+        T.style.display = "block";
+        let price = 0;
+        for (let j = 1; j <= i; j++) {
+          price =
+            price +
+            document.getElementsByClassName("quantity")[j - 1].innerHTML *
+              document.getElementsByClassName("price")[j - 1].innerHTML;
+        }
+        T.innerHTML = "TOTAL : " + price;
+        D.style.display = "block";
+        I1.value = "";
+        I2.value = "";
+        I3.value = "";
+        H1.style.marginBottom = "2vh";
+        H2.style.marginBottom = "2vh";
+        H3.style.marginBottom = "5vh";
+      }
+
+      function func2() {
+        document.getElementsByClassName("item")[i - 1].remove();
+        document.getElementsByClassName("quantity")[i - 1].remove();
+        document.getElementsByClassName("price")[i - 1].remove();
+        i = i - 1;
+        price = 0;
+        for (let j = 1; j <= i; j++) {
+          price =
+            price +
+            document.getElementsByClassName("quantity")[j - 1].innerHTML *
+              document.getElementsByClassName("price")[j - 1].innerHTML;
+        }
+        T.innerHTML = "TOTAL : " + price;
+      }
+    </script>
+  </body>
+</html>
